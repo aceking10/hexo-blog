@@ -9,7 +9,12 @@
     
     <meta name="author" content="Ace King">
     
-    <meta name="description" content="准备磁盘分区
+    <meta name="description" content="准备
+准备磁盘分区
+
+新建并格式化分区
+
+至少准备一个足够大的/分区，如果磁盘容量足够，可以额外创建/home、/boot等。
 
 创建挂载目录
 
@@ -19,7 +24,7 @@
 挂载根分区和swap
 
 
-Mount the root partition on /mnt. After that, create directories for and mo">
+Mount the root par">
     
     
     
@@ -84,15 +89,15 @@ Mount the root partition on /mnt. After that, create directories for and mo">
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/14/arch-handbook/" title="arch-handbook" itemprop="url">arch-handbook</a>
+      <a href="/2014/10/10/arch-handbook/" title="arch-handbook" itemprop="url">arch-handbook</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://aceking.gitcafe.com" title="Ace King">Ace King</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-11-14T05:54:21.000Z" itemprop="datePublished">11月 14 2014</time>
-    更新日期:<time datetime="2014-11-14T05:55:22.000Z" itemprop="dateModified">11月 14 2014</time>
+    <time datetime="2014-10-10T05:54:21.000Z" itemprop="datePublished">10月 10 2014</time>
+    更新日期:<time datetime="2014-11-14T08:17:53.000Z" itemprop="dateModified">11月 14 2014</time>
     
   </p>
 </header>
@@ -101,10 +106,15 @@ Mount the root partition on /mnt. After that, create directories for and mo">
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#准备磁盘分区"><span class="toc-number">1.</span> <span class="toc-text">准备磁盘分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#连接网络"><span class="toc-number">2.</span> <span class="toc-text">连接网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装系统"><span class="toc-number">3.</span> <span class="toc-text">安装系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置系统"><span class="toc-number">4.</span> <span class="toc-text">配置系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create_a_new_initial_RAM_disk:"><span class="toc-number">5.</span> <span class="toc-text">Create a new initial RAM disk:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Install_a_bootloader:"><span class="toc-number">6.</span> <span class="toc-text">Install a bootloader:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重启"><span class="toc-number">7.</span> <span class="toc-text">重启</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备磁盘分区"><span class="toc-number">1.1.</span> <span class="toc-text">准备磁盘分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#准备连接"><span class="toc-number">1.2.</span> <span class="toc-text">准备连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装系统"><span class="toc-number">2.</span> <span class="toc-text">安装系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置系统"><span class="toc-number">3.</span> <span class="toc-text">配置系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fstab文件"><span class="toc-number">3.1.</span> <span class="toc-text">fstab文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chroot"><span class="toc-number">3.2.</span> <span class="toc-text">chroot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hostname:"><span class="toc-number">3.3.</span> <span class="toc-text">Hostname:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time_zone:"><span class="toc-number">3.4.</span> <span class="toc-text">Time zone:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Locale:"><span class="toc-number">3.5.</span> <span class="toc-text">Locale:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Password:"><span class="toc-number">3.6.</span> <span class="toc-text">Password:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Initial_RAM:"><span class="toc-number">3.7.</span> <span class="toc-text">Initial RAM:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bootloader:"><span class="toc-number">3.8.</span> <span class="toc-text">Bootloader:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重启"><span class="toc-number">3.9.</span> <span class="toc-text">重启</span></a></li></ol></li></ol>
 		</div>
 		
-		<h4 id="准备磁盘分区">准备磁盘分区</h4>
+		<h2 id="准备">准备</h2>
+<h3 id="准备磁盘分区">准备磁盘分区</h3>
+<ul>
+<li>新建并格式化分区</li>
+</ul>
+<p>至少准备一个足够大的/分区，如果磁盘容量足够，可以额外创建/home、/boot等。</p>
 <ul>
 <li>创建挂载目录</li>
 </ul>
@@ -118,7 +128,11 @@ Mount the root partition on /mnt. After that, create directories for and mo">
 </blockquote>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="title">mount</span> /dev/sdax /mnt</div><div class="line">mount /dev/sdax/boot</div><div class="line">mount /dev/sdax/home</div></pre></td></tr></table></figure>
 
-<h4 id="连接网络">连接网络</h4>
+<h3 id="准备连接">准备连接</h3>
+<ul>
+<li>有线：</li>
+</ul>
+<p>默认使用Dhcp，一般自动检测，无需设置</p>
 <ul>
 <li>无线：</li>
 </ul>
@@ -129,44 +143,38 @@ Mount the root partition on /mnt. After that, create directories for and mo">
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget -O <span class="regexp">/etc/</span>pacman.d<span class="regexp">/mirrorlist https:/</span><span class="regexp">/www.archlinux.org/mi</span>rrorlist<span class="regexp">/all/</span></div></pre></td></tr></table></figure>
 
-<h4 id="安装系统">安装系统</h4>
+<blockquote>
+<p>取消注释中国的镜像</p>
+</blockquote>
+<h2 id="安装系统">安装系统</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pacstrap /mnt <span class="keyword">base</span></div></pre></td></tr></table></figure>
 
-<h4 id="配置系统">配置系统</h4>
+<h2 id="配置系统">配置系统</h2>
+<h3 id="fstab文件">fstab文件</h3>
 <ul>
 <li>Generate an fstab file (use -U or -L to define by UUID or labels):</li>
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">genfstab -p /mnt &gt;&gt;</span> /mnt/etc/fstab</span></div></pre></td></tr></table></figure>
 
-<ul>
-<li>chroot</li>
-</ul>
+<h3 id="chroot">chroot</h3>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">arch-<span class="keyword">chroot</span> /mnt</div></pre></td></tr></table></figure>
 
-<ul>
-<li>Set the hostname: </li>
-</ul>
+<h3 id="Hostname:">Hostname:</h3>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">echo computer_name &gt;</span> /etc/hostname</span></div></pre></td></tr></table></figure>
 
-<ul>
-<li>Set the time zone: </li>
-</ul>
+<h3 id="Time_zone:">Time zone:</h3>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ln</span> -<span class="keyword">sf</span> /usr/share/zoneinfo/zone/subzone /etc/<span class="built_in">localtime</span></div></pre></td></tr></table></figure>
 
-<ul>
-<li>Set the locale:</li>
-</ul>
+<h3 id="Locale:">Locale:</h3>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">nano -w <span class="regexp">/etc/</span>locale.gen</div><div class="line">locale-gen</div></pre></td></tr></table></figure>
 
-<ul>
-<li>Set the password:</li>
-</ul>
+<h3 id="Password:">Password:</h3>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">passwd</div></pre></td></tr></table></figure>
 
-<h4 id="Create_a_new_initial_RAM_disk:">Create a new initial RAM disk:</h4>
+<h3 id="Initial_RAM:">Initial RAM:</h3>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">mkinitcpio</span> -p linux</div></pre></td></tr></table></figure>
 
-<h4 id="Install_a_bootloader:">Install a bootloader:</h4>
+<h3 id="Bootloader:">Bootloader:</h3>
 <ul>
 <li>安装grub2:</li>
 </ul>
@@ -182,8 +190,8 @@ Mount the root partition on /mnt. After that, create directories for and mo">
 </ul>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">grub-mkconfig -o <span class="regexp">/boot/g</span>rub<span class="regexp">/grub.cfg</span></div></pre></td></tr></table></figure>
 
-<h4 id="重启">重启</h4>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reboot</div></pre></td></tr></table></figure>
+<h3 id="重启">重启</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">exit</span></div><div class="line">reboot</div></pre></td></tr></table></figure>
 
   
 	</div>
@@ -204,7 +212,7 @@ Mount the root partition on /mnt. After that, create directories for and mo">
 
 <div class="article-share" id="share">
 
-  <div data-url="http://aceking.gitcafe.com/2014/11/14/arch-handbook/" data-title="arch-handbook | 铭鉴" data-tsina="null" class="share clearfix">
+  <div data-url="http://aceking.gitcafe.com/2014/10/10/arch-handbook/" data-title="arch-handbook | 铭鉴" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -213,14 +221,14 @@ Mount the root partition on /mnt. After that, create directories for and mo">
 	
 <nav class="article-nav clearfix">
  
-
-<div class="next">
-<a href="/2014/11/14/gentoo-handbook/"  title="gentoo-handbook">
- <strong>NEXT:</strong><br/> 
- <span>gentoo-handbook
-</span>
+ <div class="prev" >
+ <a href="/2014/11/11/hexo-handbook/" title="Hexo搭建免费静态博客">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Hexo搭建免费静态博客</span>
 </a>
 </div>
+
 
 </nav>
 
@@ -235,7 +243,7 @@ Mount the root partition on /mnt. After that, create directories for and mo">
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#准备磁盘分区"><span class="toc-number">1.</span> <span class="toc-text">准备磁盘分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#连接网络"><span class="toc-number">2.</span> <span class="toc-text">连接网络</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装系统"><span class="toc-number">3.</span> <span class="toc-text">安装系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#配置系统"><span class="toc-number">4.</span> <span class="toc-text">配置系统</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Create_a_new_initial_RAM_disk:"><span class="toc-number">5.</span> <span class="toc-text">Create a new initial RAM disk:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Install_a_bootloader:"><span class="toc-number">6.</span> <span class="toc-text">Install a bootloader:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#重启"><span class="toc-number">7.</span> <span class="toc-text">重启</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#准备"><span class="toc-number">1.</span> <span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#准备磁盘分区"><span class="toc-number">1.1.</span> <span class="toc-text">准备磁盘分区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#准备连接"><span class="toc-number">1.2.</span> <span class="toc-text">准备连接</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装系统"><span class="toc-number">2.</span> <span class="toc-text">安装系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置系统"><span class="toc-number">3.</span> <span class="toc-text">配置系统</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#fstab文件"><span class="toc-number">3.1.</span> <span class="toc-text">fstab文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#chroot"><span class="toc-number">3.2.</span> <span class="toc-text">chroot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hostname:"><span class="toc-number">3.3.</span> <span class="toc-text">Hostname:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time_zone:"><span class="toc-number">3.4.</span> <span class="toc-text">Time zone:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Locale:"><span class="toc-number">3.5.</span> <span class="toc-text">Locale:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Password:"><span class="toc-number">3.6.</span> <span class="toc-text">Password:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Initial_RAM:"><span class="toc-number">3.7.</span> <span class="toc-text">Initial RAM:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bootloader:"><span class="toc-number">3.8.</span> <span class="toc-text">Bootloader:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重启"><span class="toc-number">3.9.</span> <span class="toc-text">重启</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
@@ -279,7 +287,7 @@ Mount the root partition on /mnt. After that, create directories for and mo">
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">5</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">1</span></li></ul>
   </div>
 
 
