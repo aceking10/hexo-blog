@@ -4,13 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Git使用子模块引用外部项目 | 铭鉴</title>
+    <title>Gentoo本地化设置--时区、时钟、字体、中文环境 | 铭鉴</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ace King">
     
-    <meta name="description" content="Git子模块(submodule)简介
-经常有这样的事情，当你在一个项目上工作时，你需要在其中使用另外一个项目。也许它是一个第三方开发的库或者是你独立开发和并在多个父项目中使用的。这个场景下一个常见的问题产生了：你想将两个项目单独处理但是又需要在其中一个中使用另外一个。子模块允许你将一个 Git 仓">
+    <meta name="description" content="时区
+你需要选择时区让系统知道你的地理位置，以保持正确的时间。在/usr/share/zoneinfo中查找你的时区。然后在/etc/conf.d/clock中设置时区。请忽略/usr/share/zoneinfo/Etc/GMT*时区，因为它们的名字并不表示所指的地区。比如，GMT-8实际上是GM">
     
     
     
@@ -77,15 +77,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/14/git-submodule/" title="Git使用子模块引用外部项目" itemprop="url">Git使用子模块引用外部项目</a>
+      <a href="/2014/06/30/gentoo-locale/" title="Gentoo本地化设置--时区、时钟、字体、中文环境" itemprop="url">Gentoo本地化设置--时区、时钟、字体、中文环境</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://aceking.gitcafe.com" title="Ace King">Ace King</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-11-14T04:17:18.000Z" itemprop="datePublished">11月 14 2014</time>
-    更新日期:<time datetime="2014-11-14T05:59:20.000Z" itemprop="dateModified">11月 14 2014</time>
+    <time datetime="2014-06-30T03:25:56.000Z" itemprop="datePublished">6月 30 2014</time>
+    更新日期:<time datetime="2014-11-20T02:56:36.000Z" itemprop="dateModified">11月 20 2014</time>
     
   </p>
 </header>
@@ -94,47 +94,88 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git子模块(submodule)简介"><span class="toc-number">1.</span> <span class="toc-text">Git子模块(submodule)简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git子模块用法"><span class="toc-number">2.</span> <span class="toc-text">Git子模块用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加一个子模块"><span class="toc-number">2.1.</span> <span class="toc-text">添加一个子模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#克隆一个带子模块的项目"><span class="toc-number">2.2.</span> <span class="toc-text">克隆一个带子模块的项目</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#时区"><span class="toc-number">1.</span> <span class="toc-text">时区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件时钟"><span class="toc-number">2.</span> <span class="toc-text">硬件时钟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装中文字体"><span class="toc-number">3.</span> <span class="toc-text">安装中文字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成指定的Locale"><span class="toc-number">4.</span> <span class="toc-text">生成指定的Locale</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置一个Locale显示中文"><span class="toc-number">5.</span> <span class="toc-text">设置一个Locale显示中文</span></a></li></ol>
 		</div>
 		
-		<h2 id="Git子模块(submodule)简介">Git子模块(submodule)简介</h2>
-<p>经常有这样的事情，当你在一个项目上工作时，你需要在其中使用另外一个项目。也许它是一个第三方开发的库或者是你独立开发和并在多个父项目中使用的。这个场景下一个常见的问题产生了：你想将两个项目单独处理但是又需要在其中一个中使用另外一个。<br>子模块允许你将一个 Git 仓库当作另外一个Git仓库的子目录。这允许你克隆另外一个仓库到你的项目中并且保持你的提交相对独立。</p>
-<h2 id="Git子模块用法">Git子模块用法</h2>
-<h3 id="添加一个子模块">添加一个子模块</h3>
-<p>首先你要把外部的仓库克隆到你的子目录中。<br>假设你想把 pacman项目加入到你的blog项目中，你通过<code>git submodule add</code>将外部项目加为子模块：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> blog</div><div class="line">git submodule <span class="built_in">add</span> http<span class="variable">s:</span>//gitcafe.<span class="keyword">com</span>/aceking/pacman.git themes/pacman</div></pre></td></tr></table></figure>
+		<h2 id="时区">时区</h2>
+<p>你需要选择时区让系统知道你的地理位置，以保持正确的时间。在/usr/share/zoneinfo中查找你的时区。然后在/etc/conf.d/clock中设置时区。请忽略/usr/share/zoneinfo/Etc/GMT*时区，因为它们的名字并不表示所指的地区。比如，GMT-8实际上是GMT+8。<br>设置时区信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">ls</span> /usr/share/zoneinfo</div><div class="line"><span class="keyword">echo</span> <span class="string">"Asia/Shanghai"</span> &gt; /etc/timezone</div><div class="line">emerge --config sys-libs/timezone-data</div></pre></td></tr></table></figure>
 
-<p>现在你就在项目里的themes/pacman子目录下有了一个 pacan项目。你可以进入那个子目录，进行变更，加入你自己的远程可写仓库来推送你的变更，从原始仓库拉取和归并等等。</p>
 <blockquote>
-<p>.gitmodules文件: 这是一个配置文件，保存了项目 URL 和你拉取到的本地子目录。</p>
+<p>注意: 你可以做一个用户级的设置，在shell的rc文件（如bash的.bash_profile）中将TZ变量的值设为/usr/share/zoneinfo下的任何东西。本案例中TZ=”Asia/Shanghai”。</p>
 </blockquote>
-<p><img src="/img/git-submodule.png" alt=".gitmodule"></p>
-<h3 id="克隆一个带子模块的项目">克隆一个带子模块的项目</h3>
-<p>克隆你刚才创建子模块的项目。你将得到了包含子项目的目录，但里面没有文件：pacman目录存在了，但是是空的。<br>你必须运行两个命令：<code>git submodule init</code>来初始化你的本地配置文件，<code>git submodule update</code>来从那个项目拉取所有数据并检出你上层项目里所列的合适的提交。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> blog</div><div class="line">git submodule init themes/pacaman</div><div class="line">git submodule <span class="keyword">update</span></div></pre></td></tr></table></figure>
+<h2 id="硬件时钟">硬件时钟</h2>
+<p>Gentoo Linux安装过程中，大多数情况下硬件时钟都是被设成UTC（或GMT，格林威治标准时间），而时区则定为实际的本地时间。如果出于某种原因，你需要将硬件时钟设为非UTC，那么你就要编辑/etc/conf.d/hwclock，将CLOCK的值由UTC改为local。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="constant">CLOCK</span>=<span class="string">"UTC"</span></div><div class="line">或</div><div class="line"><span class="constant">CLOCK</span>=<span class="string">"local"</span></div></pre></td></tr></table></figure>
 
-<p>现在你的pacman子目录就处于你先前提交的确切状态了。</p>
-<p>参考：<br><a href="http://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97" target="_blank" rel="external">Git-子模块</a></p>
+<h2 id="安装中文字体">安装中文字体</h2>
+<p>推荐开源文泉驿自由字体</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">emerge</span> wqy-zenhei （文泉驿正黑）</div><div class="line">emerge wqy-microhei （文泉驿微米黑）</div></pre></td></tr></table></figure>
+
+<h2 id="生成指定的Locale">生成指定的Locale</h2>
+<p>可能你在系统中只要用到一个或者两个locale。你可以在/etc/locale.gen中指定所需的的locale。<br>中文有很多种编码，最流行的就是UTF8和GBK。我们推荐客户使用UTF8编码，因为这是国际标准，能兼容任何语言的编码。</p>
+<p>添加locale到<code>/etc/locale.gen</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano -w <span class="regexp">/etc/</span>locale.gen</div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>en_US ISO-8859-1<br>en_US.UTF-8 UTF-8<br>zh_CB.UTF-8 UTF-8</p>
+</blockquote>
+<p>下一步是执行<code>locale-gen</code>。它会生成/etc/locale.gen文件中指定的所有locale。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">locale-gen</div></pre></td></tr></table></figure>
+
+<p>你可以通过执行locale -a来检验所选的locale是否可用。 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">locale <span class="operator">-a</span></div></pre></td></tr></table></figure>
+
+<h2 id="设置一个Locale显示中文">设置一个Locale显示中文</h2>
+<ul>
+<li>在<code>/etc/env.d/02locale</code>中设置全局默认的系统locale</li>
+</ul>
+<blockquote>
+<p>LANG=”zh_CN.UTF-8”<br>LC_COLLATE=”C”</p>
+</blockquote>
+<ul>
+<li>在~/.bashrc中设置用户级的系统locale</li>
+</ul>
+<blockquote>
+<p>export LANG=”zh_CN.UTF-8”<br>export LC_COLLATE=”C”</p>
+</blockquote>
+<ul>
+<li>更新系统全局默认的locale：</li>
+</ul>
+<p>设置好正确的locale后，一定要更新环境变量使系统知道所做的更改：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">env-<span class="keyword">update</span> && <span class="keyword">source</span> /etc/<span class="keyword">profile</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>更新特定用户的locale：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">source</span> ~/.bashrc</div></pre></td></tr></table></figure>
+
+<p>更新环境后，你需要按下Ctrl-Alt-Backspace杀死X服务器，登出，然后以用户身份登入。<br>现在，检验一下所做的更改是否已经生效了：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">locale</div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注：<em>另一种系统配置方式是保留默认的C locale，同时要能够表现UTF-8字符。<br>这种选择可以通过使用下述设置来实现：LC_CTYPE=zh_CN.UTF-8</em></p>
+</blockquote>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/git/">git</a>
+  <span></span> <a href="/tags/gentoo/">gentoo</a><a href="/tags/locale/">locale</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Git/">Git</a>
+  <a class="article-category-link" href="/categories/Gentoo/">Gentoo</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://aceking.gitcafe.com/2014/11/14/git-submodule/" data-title="Git使用子模块引用外部项目 | 铭鉴" data-tsina="null" class="share clearfix">
+  <div data-url="http://aceking.gitcafe.com/2014/06/30/gentoo-locale/" data-title="Gentoo本地化设置--时区、时钟、字体、中文环境 | 铭鉴" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -143,11 +184,19 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2014/08/14/gentoo-emerge/" title="Emerge常用命令">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Emerge常用命令</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2014/11/11/hello-world/"  title="Hello World">
+<a href="/2014/06/30/network-udev-name/"  title="Gentoo解决Udev升级的网卡重命名问题">
  <strong>NEXT:</strong><br/> 
- <span>Hello World
+ <span>Gentoo解决Udev升级的网卡重命名问题
 </span>
 </a>
 </div>
@@ -165,7 +214,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git子模块(submodule)简介"><span class="toc-number">1.</span> <span class="toc-text">Git子模块(submodule)简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git子模块用法"><span class="toc-number">2.</span> <span class="toc-text">Git子模块用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加一个子模块"><span class="toc-number">2.1.</span> <span class="toc-text">添加一个子模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#克隆一个带子模块的项目"><span class="toc-number">2.2.</span> <span class="toc-text">克隆一个带子模块的项目</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#时区"><span class="toc-number">1.</span> <span class="toc-text">时区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#硬件时钟"><span class="toc-number">2.</span> <span class="toc-text">硬件时钟</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装中文字体"><span class="toc-number">3.</span> <span class="toc-text">安装中文字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生成指定的Locale"><span class="toc-number">4.</span> <span class="toc-text">生成指定的Locale</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#设置一个Locale显示中文"><span class="toc-number">5.</span> <span class="toc-text">设置一个Locale显示中文</span></a></li></ol>
   </div>
 
 <div id="asidepart">

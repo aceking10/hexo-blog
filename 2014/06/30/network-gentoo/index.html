@@ -4,13 +4,19 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Git使用子模块引用外部项目 | 铭鉴</title>
+    <title>network-gentoo | 铭鉴</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ace King">
     
-    <meta name="description" content="Git子模块(submodule)简介
-经常有这样的事情，当你在一个项目上工作时，你需要在其中使用另外一个项目。也许它是一个第三方开发的库或者是你独立开发和并在多个父项目中使用的。这个场景下一个常见的问题产生了：你想将两个项目单独处理但是又需要在其中一个中使用另外一个。子模块允许你将一个 Git 仓">
+    <meta name="description" content="网卡识别配置
+要开始配置你的网卡，你首先需要告诉Gentoo RC系统你的网卡。可以用ifconfig命令查看自己网卡名字：
+1ifconfig -a
+
+
+网卡名字（如eth0）的识别是通过在/etc/init.d目录里建立一个指向net.lo的符号链接来实现。
+
+12cd /etc/init.dl">
     
     
     
@@ -77,15 +83,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/14/git-submodule/" title="Git使用子模块引用外部项目" itemprop="url">Git使用子模块引用外部项目</a>
+      <a href="/2014/06/30/network-gentoo/" title="network-gentoo" itemprop="url">network-gentoo</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://aceking.gitcafe.com" title="Ace King">Ace King</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-11-14T04:17:18.000Z" itemprop="datePublished">11月 14 2014</time>
-    更新日期:<time datetime="2014-11-14T05:59:20.000Z" itemprop="dateModified">11月 14 2014</time>
+    <time datetime="2014-06-30T02:26:40.000Z" itemprop="datePublished">6月 30 2014</time>
+    更新日期:<time datetime="2014-11-20T02:15:32.000Z" itemprop="dateModified">11月 20 2014</time>
     
   </p>
 </header>
@@ -94,47 +100,102 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git子模块(submodule)简介"><span class="toc-number">1.</span> <span class="toc-text">Git子模块(submodule)简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git子模块用法"><span class="toc-number">2.</span> <span class="toc-text">Git子模块用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加一个子模块"><span class="toc-number">2.1.</span> <span class="toc-text">添加一个子模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#克隆一个带子模块的项目"><span class="toc-number">2.2.</span> <span class="toc-text">克隆一个带子模块的项目</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#网卡识别配置"><span class="toc-number">1.</span> <span class="toc-text">网卡识别配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动和停止网络脚本"><span class="toc-number">2.</span> <span class="toc-text">启动和停止网络脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络配置"><span class="toc-number">3.</span> <span class="toc-text">网络配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令方式（临时配置，重启后失效）："><span class="toc-number">3.1.</span> <span class="toc-text">命令方式（临时配置，重启后失效）：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件方式："><span class="toc-number">3.2.</span> <span class="toc-text">配置文件方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试："><span class="toc-number">3.3.</span> <span class="toc-text">测试：</span></a></li></ol></li></ol>
 		</div>
 		
-		<h2 id="Git子模块(submodule)简介">Git子模块(submodule)简介</h2>
-<p>经常有这样的事情，当你在一个项目上工作时，你需要在其中使用另外一个项目。也许它是一个第三方开发的库或者是你独立开发和并在多个父项目中使用的。这个场景下一个常见的问题产生了：你想将两个项目单独处理但是又需要在其中一个中使用另外一个。<br>子模块允许你将一个 Git 仓库当作另外一个Git仓库的子目录。这允许你克隆另外一个仓库到你的项目中并且保持你的提交相对独立。</p>
-<h2 id="Git子模块用法">Git子模块用法</h2>
-<h3 id="添加一个子模块">添加一个子模块</h3>
-<p>首先你要把外部的仓库克隆到你的子目录中。<br>假设你想把 pacman项目加入到你的blog项目中，你通过<code>git submodule add</code>将外部项目加为子模块：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> blog</div><div class="line">git submodule <span class="built_in">add</span> http<span class="variable">s:</span>//gitcafe.<span class="keyword">com</span>/aceking/pacman.git themes/pacman</div></pre></td></tr></table></figure>
+		<h2 id="网卡识别配置">网卡识别配置</h2>
+<p>要开始配置你的网卡，你首先需要告诉Gentoo RC系统你的网卡。<br>可以用ifconfig命令查看自己网卡名字：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ifconfig <span class="operator">-a</span></div></pre></td></tr></table></figure>
 
-<p>现在你就在项目里的themes/pacman子目录下有了一个 pacan项目。你可以进入那个子目录，进行变更，加入你自己的远程可写仓库来推送你的变更，从原始仓库拉取和归并等等。</p>
 <blockquote>
-<p>.gitmodules文件: 这是一个配置文件，保存了项目 URL 和你拉取到的本地子目录。</p>
+<p>网卡名字（如eth0）的识别是通过在/etc/init.d目录里建立一个指向net.lo的符号链接来实现。</p>
 </blockquote>
-<p><img src="/img/git-submodule.png" alt=".gitmodule"></p>
-<h3 id="克隆一个带子模块的项目">克隆一个带子模块的项目</h3>
-<p>克隆你刚才创建子模块的项目。你将得到了包含子项目的目录，但里面没有文件：pacman目录存在了，但是是空的。<br>你必须运行两个命令：<code>git submodule init</code>来初始化你的本地配置文件，<code>git submodule update</code>来从那个项目拉取所有数据并检出你上层项目里所列的合适的提交。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> blog</div><div class="line">git submodule init themes/pacaman</div><div class="line">git submodule <span class="keyword">update</span></div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> /etc/init.<span class="keyword">d</span></div><div class="line"><span class="keyword">ln</span> -<span class="keyword">s</span> net.<span class="keyword">lo</span> net.eth0</div></pre></td></tr></table></figure>
 
-<p>现在你的pacman子目录就处于你先前提交的确切状态了。</p>
-<p>参考：<br><a href="http://git-scm.com/book/zh/v1/Git-%E5%B7%A5%E5%85%B7-%E5%AD%90%E6%A8%A1%E5%9D%97" target="_blank" rel="external">Git-子模块</a></p>
+<h2 id="启动和停止网络脚本">启动和停止网络脚本</h2>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/net.eth0 <span class="operator"><span class="keyword">start</span></span></div><div class="line">/etc/init.d/net.eth0 <span class="keyword">stop</span></div><div class="line">rc-<span class="keyword">update</span> <span class="keyword">add</span> net.eth0 <span class="keyword">default</span>  #设置开机启动eth0</div></pre></td></tr></table></figure>
+
+<h2 id="网络配置">网络配置</h2>
+<h3 id="命令方式（临时配置，重启后失效）：">命令方式（临时配置，重启后失效）：</h3>
+<p>设置网络包括了三个步骤：</p>
+<ul>
+<li>使用ifconfig配置ip地址：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">ifconfig</span> eth0 <span class="number">192.168.1.10</span> broadcast <span class="number">192.168.1.255</span> netmask <span class="number">255.255.255.0</span> up</div></pre></td></tr></table></figure>
+
+<ul>
+<li>使用route来设定路由的网关：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">route</span> add <span class="default"><span class="keyword">default</span> gw 192.168.1.1</span></div></pre></td></tr></table></figure>
+
+<ul>
+<li>创建/etc/resolv.conf配置DNS：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano -<span class="keyword">w</span> /etc/resolv.<span class="keyword">conf</span></div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>nameserver $202.99.166.4<br>nameserver $202.99.160.68</p>
+</blockquote>
+<h3 id="配置文件方式：">配置文件方式：</h3>
+<p>编辑网络配置文件/etc/conf.d/net和/etc/resolv.conf。</p>
+<ul>
+<li>编辑/etc/conf.d/net配置主机IP地址、子网掩码和网关:</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano -<span class="keyword">w</span> /etc/<span class="keyword">conf</span>.<span class="keyword">d</span>/net</div></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>使用CIDR形式表示的静态IP：</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">config_eth0=</span><span class="string">"192.168.1.7/24"</span></div><div class="line"><span class="variable">routes_eth0=</span><span class="string">"default via 192.168.1.1"</span></div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用netmask形式表示的静态IP</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">config_eth0=</span><span class="string">"192.168.1.7 broadcast 192.168.1.255 netmask 255.255.255.0"</span></div><div class="line"><span class="variable">routes_eth0=</span><span class="string">"default via 192.168.1.1"</span></div></pre></td></tr></table></figure>
+
+<p>注意: 如果你没有指定，DHCP是默认选项。</p>
+<h3 id="测试：">测试：</h3>
+<ul>
+<li>测试是否能ping的通网关：</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">ping</span> <span class="number">192.168.1.1</span></div></pre></td></tr></table></figure>
+
+<p>如果能ping通，ip设置没错误。</p>
+<ul>
+<li>测试DNS：</li>
+</ul>
+<p>编辑/etc/resolv.conf配置DNS：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano /etc/resolv.<span class="keyword">conf</span></div></pre></td></tr></table></figure>
+
+<p>在其中加入以下两行内容：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">nameserver</span> <span class="number">202.99.160.68</span></div><div class="line">nameserver <span class="number">202.99.166.4</span></div></pre></td></tr></table></figure>
+
+<p>测试DNS解析是否正常：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ping www.baidu.<span class="keyword">com</span></div></pre></td></tr></table></figure>
+
+<p>如果能ping通，DNS设置无误。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/git/">git</a>
+  <span></span> <a href="/tags/gentoo/">gentoo</a><a href="/tags/network/">network</a>
   </div>
 
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/Git/">Git</a>
+  <a class="article-category-link" href="/categories/Gentoo/">Gentoo</a>
 </div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://aceking.gitcafe.com/2014/11/14/git-submodule/" data-title="Git使用子模块引用外部项目 | 铭鉴" data-tsina="null" class="share clearfix">
+  <div data-url="http://aceking.gitcafe.com/2014/06/30/network-gentoo/" data-title="network-gentoo | 铭鉴" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -143,11 +204,19 @@
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2014/06/30/network-udev-name/" title="Gentoo解决Udev升级的网卡重命名问题">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Gentoo解决Udev升级的网卡重命名问题</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2014/11/11/hello-world/"  title="Hello World">
+<a href="/2014/05/15/gentoo-handbook/"  title="Gentoo Linux安装详解">
  <strong>NEXT:</strong><br/> 
- <span>Hello World
+ <span>Gentoo Linux安装详解
 </span>
 </a>
 </div>
@@ -165,7 +234,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Git子模块(submodule)简介"><span class="toc-number">1.</span> <span class="toc-text">Git子模块(submodule)简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Git子模块用法"><span class="toc-number">2.</span> <span class="toc-text">Git子模块用法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加一个子模块"><span class="toc-number">2.1.</span> <span class="toc-text">添加一个子模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#克隆一个带子模块的项目"><span class="toc-number">2.2.</span> <span class="toc-text">克隆一个带子模块的项目</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#网卡识别配置"><span class="toc-number">1.</span> <span class="toc-text">网卡识别配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动和停止网络脚本"><span class="toc-number">2.</span> <span class="toc-text">启动和停止网络脚本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络配置"><span class="toc-number">3.</span> <span class="toc-text">网络配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令方式（临时配置，重启后失效）："><span class="toc-number">3.1.</span> <span class="toc-text">命令方式（临时配置，重启后失效）：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置文件方式："><span class="toc-number">3.2.</span> <span class="toc-text">配置文件方式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试："><span class="toc-number">3.3.</span> <span class="toc-text">测试：</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
