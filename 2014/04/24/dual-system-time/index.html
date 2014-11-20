@@ -4,18 +4,20 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Portage更新排除软件包 | 铭鉴</title>
+    <title>Gentoo解决Windows双系统时间不同步问题 | 铭鉴</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ace King">
     
-    <meta name="description" content="有选择地更新特定的类别/软件包并且忽略其他类别/软件包
+    <meta name="description" content="升级后的gentoo不再使用/etc/conf.d/clock，而是使用/etc/conf.d/hwclock来设置和时间相关了。
 
-通过让emerge --sync在执行rsync的时候排除个别类别/软件包
 
-你需要在/etc/make.conf中赋予--exclude-from变量一个文件名，该文件应包含你想要排除的软件包。
+在/etc/conf.d/hwclock文件中设置系统时间为本地时间而不是UTC时间:
 
-在/etc/portage/make.co">
+1clock=&quot;local&quot;     #default: UTC
+
+
+然后">
     
     
     
@@ -82,15 +84,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/08/18/portage-excludes/" title="Portage更新排除软件包" itemprop="url">Portage更新排除软件包</a>
+      <a href="/2014/04/24/dual-system-time/" title="Gentoo解决Windows双系统时间不同步问题" itemprop="url">Gentoo解决Windows双系统时间不同步问题</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://aceking.gitcafe.com" title="Ace King">Ace King</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-08-18T07:07:09.000Z" itemprop="datePublished">8月 18 2014</time>
-    更新日期:<time datetime="2014-11-20T01:55:50.000Z" itemprop="dateModified">11月 20 2014</time>
+    <time datetime="2014-04-24T00:20:22.000Z" itemprop="datePublished">4月 24 2014</time>
+    更新日期:<time datetime="2014-11-20T06:08:36.000Z" itemprop="dateModified">11月 20 2014</time>
     
   </p>
 </header>
@@ -99,37 +101,43 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#有选择地更新特定的类别/软件包并且忽略其他类别/软件包"><span class="toc-number">1.</span> <span class="toc-text">有选择地更新特定的类别/软件包并且忽略其他类别/软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑/var/lib/portage/world文件"><span class="toc-number">2.</span> <span class="toc-text">编辑/var/lib/portage/world文件</span></a></li></ol>
+		
 		</div>
 		
-		<h3 id="有选择地更新特定的类别/软件包并且忽略其他类别/软件包">有选择地更新特定的类别/软件包并且忽略其他类别/软件包</h3>
+		<blockquote>
+<p>升级后的gentoo不再使用/etc/conf.d/clock，而是使用/etc/conf.d/hwclock来设置和时间相关了。</p>
+</blockquote>
 <ul>
-<li>通过让<code>emerge --sync</code>在执行rsync的时候排除个别类别/软件包</li>
+<li>在/etc/conf.d/hwclock文件中设置系统时间为本地时间而不是UTC时间:</li>
 </ul>
-<p>你需要在/etc/make.conf中赋予<code>--exclude-from</code>变量一个文件名，该文件应包含你想要排除的软件包。</p>
-<ul>
-<li>在/etc/portage/make.conf中指定包含排除软件包条目的文件:</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="constant">PORTAGE_RSYNC_EXTRA_OPTS</span>=<span class="string">"--exclude-from=/etc/portage/rsync_excludes"</span></div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">clock</span>=<span class="string">"local"</span>     #<span class="default"><span class="keyword">default</span>: <span class="type">UTC</span></span></div></pre></td></tr></table></figure>
 
 <ul>
-<li>在/etc/portage/rsync_excludes中设定排除所有游戏</li>
+<li>然后用date命令设置正确的系统时间，格式如下：</li>
 </ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">games-<span class="keyword">*</span>/<span class="keyword">*</span></div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">date</span> [MMDDhhmm[YY][.ss］</div></pre></td></tr></table></figure>
 
-<h3 id="编辑/var/lib/portage/world文件">编辑/var/lib/portage/world文件</h3>
-<p>这个文件包含了用户自定义的软件包列表。添加你想在升级world集合时一起升级的软件包，删除那些你想忽略软件包。</p>
+<p>其他的不用解释了，其中的YY表示年份的前２位数。</p>
 <ul>
-<li>安装软件时使用<code>--oneshot(-1)</code>参数</li>
+<li>然后再把系统时间同步到硬件时间就可以了：</li>
 </ul>
-<p>正常合并指定的包，但是并不将其添加到world文件中。这样，除非被其他包依赖而被动升级，否则不会升级。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">hwclock</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">systohc</span></div></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用hwclock命令也可以把硬件时间同步到系统时间：</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">hwclock</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">hctosys</span></div></pre></td></tr></table></figure>
+
+<p>显示硬件时间则是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hwclock --<span class="literal">show</span></div></pre></td></tr></table></figure>
+
   
 	</div>
 		<footer class="article-footer clearfix">
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/gentoo/">gentoo</a><a href="/tags/portage/">portage</a>
+  <span></span> <a href="/tags/gentoo/">gentoo</a><a href="/tags/time/">time</a>
   </div>
 
 
@@ -142,7 +150,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://aceking.gitcafe.com/2014/08/18/portage-excludes/" data-title="Portage更新排除软件包 | 铭鉴" data-tsina="null" class="share clearfix">
+  <div data-url="http://aceking.gitcafe.com/2014/04/24/dual-system-time/" data-title="Gentoo解决Windows双系统时间不同步问题 | 铭鉴" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -152,18 +160,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/09/02/gcc-config-error/" title="gcc-config问题:Active gcc profile is invalid">
+ <a href="/2014/05/06/kernel-ntfs/" title="Gentoo挂载Windowntfs的NTFS分区">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  gcc-config问题:Active gcc profile is invalid</span>
+  Gentoo挂载Windowntfs的NTFS分区</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/08/14/gentoo-emerge/"  title="Emerge常用命令">
+<a href="/2014/04/16/gentoo-update/"  title="Gentoo更新系统标准步骤">
  <strong>NEXT:</strong><br/> 
- <span>Emerge常用命令
+ <span>Gentoo更新系统标准步骤
 </span>
 </a>
 </div>
@@ -181,7 +189,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#有选择地更新特定的类别/软件包并且忽略其他类别/软件包"><span class="toc-number">1.</span> <span class="toc-text">有选择地更新特定的类别/软件包并且忽略其他类别/软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑/var/lib/portage/world文件"><span class="toc-number">2.</span> <span class="toc-text">编辑/var/lib/portage/world文件</span></a></li></ol>
+  
   </div>
 
 <div id="asidepart">

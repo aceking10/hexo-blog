@@ -4,18 +4,15 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Portage更新排除软件包 | 铭鉴</title>
+    <title>Gentoo/Funtoo USE标记介绍 | 铭鉴</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ace King">
     
-    <meta name="description" content="有选择地更新特定的类别/软件包并且忽略其他类别/软件包
-
-通过让emerge --sync在执行rsync的时候排除个别类别/软件包
-
-你需要在/etc/make.conf中赋予--exclude-from变量一个文件名，该文件应包含你想要排除的软件包。
-
-在/etc/portage/make.co">
+    <meta name="description" content="Gentoo/Funtoo USE标记
+USE的简单理解如下：一个软件不只包含软件本身，还包括其组件，如，文档，插件，GUI支持等。USE就是用来标记是否要安装软件的同时安装这些组件。
+声明USE标记
+所有USE标记都声明在USE变量里面。 默认的USE设定，在make.defaults文件（你的p">
     
     
     
@@ -82,15 +79,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/08/18/portage-excludes/" title="Portage更新排除软件包" itemprop="url">Portage更新排除软件包</a>
+      <a href="/2013/12/04/gentoo-use/" title="Gentoo/Funtoo USE标记介绍" itemprop="url">Gentoo/Funtoo USE标记介绍</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://aceking.gitcafe.com" title="Ace King">Ace King</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-08-18T07:07:09.000Z" itemprop="datePublished">8月 18 2014</time>
-    更新日期:<time datetime="2014-11-20T01:55:50.000Z" itemprop="dateModified">11月 20 2014</time>
+    <time datetime="2013-12-04T04:29:05.000Z" itemprop="datePublished">12月 4 2013</time>
+    更新日期:<time datetime="2014-11-20T05:44:49.000Z" itemprop="dateModified">11月 20 2014</time>
     
   </p>
 </header>
@@ -99,30 +96,38 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#有选择地更新特定的类别/软件包并且忽略其他类别/软件包"><span class="toc-number">1.</span> <span class="toc-text">有选择地更新特定的类别/软件包并且忽略其他类别/软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑/var/lib/portage/world文件"><span class="toc-number">2.</span> <span class="toc-text">编辑/var/lib/portage/world文件</span></a></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gentoo/Funtoo_USE标记"><span class="toc-number">1.</span> <span class="toc-text">Gentoo/Funtoo USE标记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#声明USE标记"><span class="toc-number">2.</span> <span class="toc-text">声明USE标记</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#全局USE标记"><span class="toc-number">2.1.</span> <span class="toc-text">全局USE标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#局部USE标记"><span class="toc-number">2.2.</span> <span class="toc-text">局部USE标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#临时USE标记"><span class="toc-number">2.3.</span> <span class="toc-text">临时USE标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#USE标记优先级"><span class="toc-number">2.4.</span> <span class="toc-text">USE标记优先级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#USE标记颜色"><span class="toc-number">2.5.</span> <span class="toc-text">USE标记颜色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#包特有的USE标记"><span class="toc-number">2.6.</span> <span class="toc-text">包特有的USE标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#系统上应用新的USE标记"><span class="toc-number">2.7.</span> <span class="toc-text">系统上应用新的USE标记</span></a></li></ol></li></ol>
 		</div>
 		
-		<h3 id="有选择地更新特定的类别/软件包并且忽略其他类别/软件包">有选择地更新特定的类别/软件包并且忽略其他类别/软件包</h3>
-<ul>
-<li>通过让<code>emerge --sync</code>在执行rsync的时候排除个别类别/软件包</li>
-</ul>
-<p>你需要在/etc/make.conf中赋予<code>--exclude-from</code>变量一个文件名，该文件应包含你想要排除的软件包。</p>
-<ul>
-<li>在/etc/portage/make.conf中指定包含排除软件包条目的文件:</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="constant">PORTAGE_RSYNC_EXTRA_OPTS</span>=<span class="string">"--exclude-from=/etc/portage/rsync_excludes"</span></div></pre></td></tr></table></figure>
+		<h3 id="Gentoo/Funtoo_USE标记">Gentoo/Funtoo USE标记</h3>
+<p>USE的简单理解如下：一个软件不只包含软件本身，还包括其组件，如，文档，插件，GUI支持等。USE就是用来标记是否要安装软件的同时安装这些组件。</p>
+<h3 id="声明USE标记">声明USE标记</h3>
+<p>所有USE标记都声明在USE变量里面。 默认的USE设定，在make.defaults文件（你的profile的一部分）里声明。</p>
+<h4 id="全局USE标记">全局USE标记</h4>
+<p>不要通过修改make.defaults文件里的USE变量来满足你的需要：在升级Portage的时候，这个文件将会被破坏（被覆盖）。<br>要改变这个默认设置，你需要在USE变量里添加或移去关键字。这是通过在<code>/etc/make.conf</code>里定义USE全局变量来实现的。<br>全局USE标记适用范围是整个系统，保存在 /etc/portage/make.conf 文件中。<br>比如，如果使用GNOME而不想使用KDE，就希望所有软件都要默认支持GNOME，KDE的支持就不要装，那么写上 USE＝“gnome -kde”。前面加 - 表示移除。<br>当前可用的全局USE标记列表可以在网上或者本机的/usr/portage/profiles/use.desc文件里找到。</p>
+<h4 id="局部USE标记">局部USE标记</h4>
+<p>局部USE标记只被单个包用来做该包特有的决定，保存在 <code>/etc/portage/package.use</code> 中。<br>比如，某个软件需要安装帮助文档，加上doc。<br>当前可用的局部USE标记列表可以在网上或本机的/usr/portage/profiles/use.local.desc 文件里找到。</p>
+<h4 id="临时USE标记">临时USE标记</h4>
+<p>仅仅把USE变量声明成一个<code>环境变量</code>设定临时USE。比如，在安装 xxx 的时候不要装 jj 就声明：<br><code>USE ＝ &quot;-jj&quot; emerge xxx</code></p>
+<h4 id="USE标记优先级">USE标记优先级</h4>
+<p>USE标记这么多地方可以定义，有的加有的减，听谁的，需要有优先级来判断。USE优先级顺序如下（由低到高）：</p>
+<blockquote>
+<p>make.defaults（这个文件不要去修改）里面的USE默认设定 &lt; 用户在/etc/make.conf里面的USE设定 &lt; 用户在/etc/portage/package.use里面的USE设定 &lt; 作为环境变量的USE设定</p>
+</blockquote>
+<h4 id="USE标记颜色">USE标记颜色</h4>
+<p>emerge命令显示时，不同<strong>颜色</strong>USE标记的意义:</p>
+<blockquote>
+<p><em>红色</em> 代表这次emerge用到的USE标记<br><em>黄色</em> 表示从上次更新后该标记被增加、删除或者Masked<br><em>蓝色</em> 前面带-表示这次emerge屏蔽掉的USE标记<br><em>绿色</em> 的是你本次编译添加的新USE标记，或者去掉的USE标记。</p>
+</blockquote>
+<h4 id="包特有的USE标记">包特有的USE标记</h4>
+<p>查看特定包可用USE标记</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">emerge</span> -pv xxx</div></pre></td></tr></table></figure>
 
-<ul>
-<li>在/etc/portage/rsync_excludes中设定排除所有游戏</li>
-</ul>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">games-<span class="keyword">*</span>/<span class="keyword">*</span></div></pre></td></tr></table></figure>
+<h4 id="系统上应用新的USE标记">系统上应用新的USE标记</h4>
+<p>如果你已经修改了你的USE标记，而且你想用新USE标记更新你的系统，可以使用emerge 的 <code>--newuse</code>。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">emerge</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">update</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">deep</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">newuse</span> <span class="comment">world</span>  <span class="comment">（重新构建你的系统）</span></div></pre></td></tr></table></figure>
 
-<h3 id="编辑/var/lib/portage/world文件">编辑/var/lib/portage/world文件</h3>
-<p>这个文件包含了用户自定义的软件包列表。添加你想在升级world集合时一起升级的软件包，删除那些你想忽略软件包。</p>
-<ul>
-<li>安装软件时使用<code>--oneshot(-1)</code>参数</li>
-</ul>
-<p>正常合并指定的包，但是并不将其添加到world文件中。这样，除非被其他包依赖而被动升级，否则不会升级。</p>
+<p>参考：<br><a href="http://en.gentoo-wiki.com/wiki/Portage" target="_blank" rel="external">http://en.gentoo-wiki.com/wiki/Portage</a><br><a href="http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=2&amp;chap=1" target="_blank" rel="external">http://www.gentoo.org/doc/en/handbook/handbook-x86.xml?part=2&amp;chap=1</a><br><a href="http://www.gentoo.org/dyn/use-index.xml" target="_blank" rel="external">http://www.gentoo.org/dyn/use-index.xml</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -142,7 +147,7 @@
 
 <div class="article-share" id="share">
 
-  <div data-url="http://aceking.gitcafe.com/2014/08/18/portage-excludes/" data-title="Portage更新排除软件包 | 铭鉴" data-tsina="null" class="share clearfix">
+  <div data-url="http://aceking.gitcafe.com/2013/12/04/gentoo-use/" data-title="Gentoo/Funtoo USE标记介绍 | 铭鉴" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -152,18 +157,18 @@
 <nav class="article-nav clearfix">
  
  <div class="prev" >
- <a href="/2014/09/02/gcc-config-error/" title="gcc-config问题:Active gcc profile is invalid">
+ <a href="/2013/12/04/gentoo-locale/" title="Gentoo本地化中文设置--Locale系统介绍">
   <strong>PREVIOUS:</strong><br/>
   <span>
-  gcc-config问题:Active gcc profile is invalid</span>
+  Gentoo本地化中文设置--Locale系统介绍</span>
 </a>
 </div>
 
 
 <div class="next">
-<a href="/2014/08/14/gentoo-emerge/"  title="Emerge常用命令">
+<a href="/2013/11/18/network-udev-name/"  title="Gentoo解决Udev升级的网卡重命名问题">
  <strong>NEXT:</strong><br/> 
- <span>Emerge常用命令
+ <span>Gentoo解决Udev升级的网卡重命名问题
 </span>
 </a>
 </div>
@@ -181,7 +186,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#有选择地更新特定的类别/软件包并且忽略其他类别/软件包"><span class="toc-number">1.</span> <span class="toc-text">有选择地更新特定的类别/软件包并且忽略其他类别/软件包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#编辑/var/lib/portage/world文件"><span class="toc-number">2.</span> <span class="toc-text">编辑/var/lib/portage/world文件</span></a></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Gentoo/Funtoo_USE标记"><span class="toc-number">1.</span> <span class="toc-text">Gentoo/Funtoo USE标记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#声明USE标记"><span class="toc-number">2.</span> <span class="toc-text">声明USE标记</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#全局USE标记"><span class="toc-number">2.1.</span> <span class="toc-text">全局USE标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#局部USE标记"><span class="toc-number">2.2.</span> <span class="toc-text">局部USE标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#临时USE标记"><span class="toc-number">2.3.</span> <span class="toc-text">临时USE标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#USE标记优先级"><span class="toc-number">2.4.</span> <span class="toc-text">USE标记优先级</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#USE标记颜色"><span class="toc-number">2.5.</span> <span class="toc-text">USE标记颜色</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#包特有的USE标记"><span class="toc-number">2.6.</span> <span class="toc-text">包特有的USE标记</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#系统上应用新的USE标记"><span class="toc-number">2.7.</span> <span class="toc-text">系统上应用新的USE标记</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
