@@ -75,192 +75,28 @@
 
   <section class="post" itemscope itemprop="blogPost">
   
-    <a href="/2014/08/18/portage-excludes/" title="Portage更新排除软件包" itemprop="url">
+    <a href="/2013/11/09/network-gentoo/" title="Gentoo网络配置" itemprop="url">
   
-    <h1 itemprop="name">Portage更新排除软件包</h1>
+    <h1 itemprop="name">Gentoo网络配置</h1>
     
      
-           <p itemprop="description" >有选择地更新特定的类别/软件包并且忽略其他类别/软件包
+           <p itemprop="description" >网卡识别配置
+要开始配置你的网卡，你首先需要告诉Gentoo RC系统你的网卡。可以用ifconfig命令查看自己网卡名字：
+1ifconfig -a
 
-通过让emerge --sync在执行rsync的时候排除个别类别/软件包
 
-你需要在/etc/make.conf中赋予--exclude-from变量一个文件名，该文件应包含你想要排除的软件包。
+网卡名字（如eth0）的识别是通过在/etc/init.d目录里建立一个指向net.lo的符号链接来实现。
 
-在/etc/porta</p>
+12cd /e</p>
         
     
-    <time datetime="2014-08-18T07:07:09.000Z" itemprop="datePublished">8月 18 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/08/14/gentoo-emerge/" title="Emerge常用命令" itemprop="url">
-  
-    <h1 itemprop="name">Emerge常用命令</h1>
-    
-     
-           <p itemprop="description" >查看依赖关系 —pretend（-p）-pv    #查看包含doc USE flag，来查看是否下载了文档。
- 搜索软件包信息 查询软件包名称—search（-s）查询软件包描述：—searchdesc (-S)查看软件更新记录—changelog (-l)    #与 —pr</p>
-        
-    
-    <time datetime="2014-08-14T08:05:50.000Z" itemprop="datePublished">8月 14 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/05/15/gentoo-handbook/" title="Gentoo Linux安装详解" itemprop="url">
-  
-    <h1 itemprop="name">Gentoo Linux安装详解</h1>
-    
-     
-           <p itemprop="description" >前期准备
-远程登录：
-
-开启ssh服务：
-
-1/etc/init.d/sshd start
-
-
-设置密码：
-
-1passwd
-
-以便使用putty、ssh client远程登录上传stage等（有时在线下载很慢，而局域网上传很快）
-准备磁盘：
-
-分区：
-
-1fdisk /dev/</p>
-        
-    
-    <time datetime="2014-05-15T10:11:36.000Z" itemprop="datePublished">5月 15 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/05/06/kernel-ntfs/" title="Gentoo挂载Windowntfs的NTFS分区" itemprop="url">
-  
-    <h1 itemprop="name">Gentoo挂载Windowntfs的NTFS分区</h1>
-    
-     
-           <p itemprop="description" >内核需要开启的选项
-12File systems ---&amp;gt;    &amp;lt;*&amp;gt; FUSE (Filesystem in Userspace) support
-
-使用NTFS-3G
-NTFS-3G是一个由Tuxera公司开发并维护的开源项目，目的是为Linux提供NTF</p>
-        
-    
-    <time datetime="2014-05-06T09:21:58.000Z" itemprop="datePublished">5月 6 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/04/24/dual-system-time/" title="Gentoo解决Windows双系统时间不同步问题" itemprop="url">
-  
-    <h1 itemprop="name">Gentoo解决Windows双系统时间不同步问题</h1>
-    
-     
-           <p itemprop="description" >升级后的gentoo不再使用/etc/conf.d/clock，而是使用/etc/conf.d/hwclock来设置和时间相关了。
-
-
-在/etc/conf.d/hwclock文件中设置系统时间为本地时间而不是UTC时间:
-
-1clock=&quot;local&quot;     #default</p>
-        
-    
-    <time datetime="2014-04-24T00:20:22.000Z" itemprop="datePublished">4月 24 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2014/04/16/gentoo-update/" title="Gentoo更新系统标准步骤" itemprop="url">
-  
-    <h1 itemprop="name">Gentoo更新系统标准步骤</h1>
-    
-     
-           <p itemprop="description" >Gentoo Linux改为采用滚动更新。Gentoo Linux的更新频密度可达到每周皆提供更新版。
-升级系统的标准步骤：
-123emerge --sync //升级整个portage目录emerge portage //如果不是最新的portage，需要按提示执行此操作eme</p>
-        
-    
-    <time datetime="2014-04-16T07:15:59.000Z" itemprop="datePublished">4月 16 2014</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2013/12/04/gentoo-localization/" title="Gentoo本地化设置--时区、时钟、字体、中文环境" itemprop="url">
-  
-    <h1 itemprop="name">Gentoo本地化设置--时区、时钟、字体、中文环境</h1>
-    
-     
-           <p itemprop="description" >时区
-你需要选择时区让系统知道你的地理位置，以保持正确的时间。在/usr/share/zoneinfo中查找你的时区。然后在/etc/conf.d/clock中设置时区。请忽略/usr/share/zoneinfo/Etc/GMT*时区，因为它们的名字并不表示所指的地区。比如，G</p>
-        
-    
-    <time datetime="2013-12-04T13:32:56.000Z" itemprop="datePublished">12月 4 2013</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2013/12/04/gentoo-locale/" title="Gentoo本地化中文设置--Locale系统介绍" itemprop="url">
-  
-    <h1 itemprop="name">Gentoo本地化中文设置--Locale系统介绍</h1>
-    
-     
-           <p itemprop="description" >locale是什么？
-一份Locale是一组信息的集合，大多数程序利用它来确定特定的国家和语言设置。这些locale以及它们包含的数据是系统库的一部分，可以在大多数系统中的/usr/share/locale目录下找到。locale的名称通常命名为ab_CD的形式，其中ab是两个（</p>
-        
-    
-    <time datetime="2013-12-04T07:09:40.000Z" itemprop="datePublished">12月 4 2013</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2013/12/04/gentoo-use/" title="Gentoo/Funtoo USE标记介绍" itemprop="url">
-  
-    <h1 itemprop="name">Gentoo/Funtoo USE标记介绍</h1>
-    
-     
-           <p itemprop="description" >Gentoo/Funtoo USE标记
-USE的简单理解如下：一个软件不只包含软件本身，还包括其组件，如，文档，插件，GUI支持等。USE就是用来标记是否要安装软件的同时安装这些组件。
-声明USE标记
-所有USE标记都声明在USE变量里面。 默认的USE设定，在make.defa</p>
-        
-    
-    <time datetime="2013-12-04T04:29:05.000Z" itemprop="datePublished">12月 4 2013</time>
-  </a>
-</section>
-
-  <section class="post" itemscope itemprop="blogPost">
-  
-    <a href="/2013/11/18/network-udev-name/" title="Gentoo解决Udev升级的网卡重命名问题" itemprop="url">
-  
-    <h1 itemprop="name">Gentoo解决Udev升级的网卡重命名问题</h1>
-    
-     
-           <p itemprop="description" >问题描述：
-配置网络时，很多新手运行ifconfig命令查看网卡时，会发现我们熟悉的eth0网卡没有了，或是发现一些不规则命名的东东，不错，那就是你的网卡。
-
-因为内核升级（忘记具体哪个版本了）从udev-197将自动分配更好的接口,网卡的命名改变了。
-
-参考资料：http://</p>
-        
-    
-    <time datetime="2013-11-18T03:38:38.000Z" itemprop="datePublished">11月 18 2013</time>
+    <time datetime="2013-11-09T07:07:40.000Z" itemprop="datePublished">11月 9 2013</time>
   </a>
 </section>
 
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
   </nav>
 
 </div>

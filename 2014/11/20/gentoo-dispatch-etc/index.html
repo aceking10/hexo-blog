@@ -4,13 +4,21 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Gentoo解决&quot;!!! existing preserved libs&quot;问题 | 铭鉴</title>
+    <title>铭鉴</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ace King">
     
-    <meta name="description" content="问题描述
-1234567891011!!! existing preserved libs:&amp;gt;&amp;gt;&amp;gt; package: media-libs/libmng-2.0.2-r1 *  - /usr/lib/libmng.so.1 *  - /usr/lib/libmng.so.1.0.0">
+    <meta name="description" content="title: Portage附加工具: dispatch-conf和etc-updatedate: 2014-11-20 15:06:06categories:
+
+Gentootags:
+gentoo
+portage
+
+
+dispatch-conf
+介绍
+dispatch-conf是一个帮助合并._">
     
     
     
@@ -77,15 +85,15 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/10/20/gentoo-preserved-libs/" title="Gentoo解决&quot;!!! existing preserved libs&quot;问题" itemprop="url">Gentoo解决&quot;!!! existing preserved libs&quot;问题</a>
+      <a href="/2014/11/20/gentoo-dispatch-etc/" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
     
       <a href="http://aceking.gitcafe.com" title="Ace King">Ace King</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-10-20T07:57:15.000Z" itemprop="datePublished">10月 20 2014</time>
-    更新日期:<time datetime="2014-11-20T06:20:05.000Z" itemprop="dateModified">11月 20 2014</time>
+    <time datetime="2014-11-20T07:07:08.000Z" itemprop="datePublished">11月 20 2014</time>
+    更新日期:<time datetime="2014-11-20T07:07:08.000Z" itemprop="dateModified">11月 20 2014</time>
     
   </p>
 </header>
@@ -94,54 +102,69 @@
 		
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法"><span class="toc-number">2.</span> <span class="toc-text">解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#折腾过程："><span class="toc-number">2.1.</span> <span class="toc-text">折腾过程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">2.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#dispatch-conf"><span class="toc-number">1.</span> <span class="toc-text">dispatch-conf</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">1.2.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#etc-update"><span class="toc-number">2.</span> <span class="toc-text">etc-update</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-1"><span class="toc-number">2.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-1"><span class="toc-number">2.2.</span> <span class="toc-text">使用</span></a></li></ol></li></ol>
 		</div>
 		
-		<h2 id="问题描述">问题描述</h2>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">!!! existing preserved libs:</div><div class="line">&gt;&gt;&gt; package: media-libs/libmng-<span class="number">2.0</span><span class="number">.2</span>-r1</div><div class="line"> *  - /usr/<span class="keyword">lib</span>/libmng.so<span class="number">.1</span></div><div class="line"> *  - /usr/<span class="keyword">lib</span>/libmng.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span></div><div class="line"> *      used <span class="keyword">by</span> /opt/kingsoft/wps-office/office6/qt/plugins/imageformats/libqmng.so (app-office/wps-office-<span class="number">9.1</span><span class="number">.0</span><span class="number">.4751</span>_alpha15)</div><div class="line">&gt;&gt;&gt; package: media-libs/lcms-<span class="number">1.19</span>-r2</div><div class="line"> *  - /usr/<span class="keyword">lib</span>/liblcms.so<span class="number">.1</span></div><div class="line"> *  - /usr/<span class="keyword">lib</span>/liblcms.so<span class="number">.1</span><span class="number">.0</span><span class="number">.19</span></div><div class="line"> *      used <span class="keyword">by</span> /usr/<span class="keyword">lib</span>/libmng.so<span class="number">.1</span> (preserved)</div><div class="line"> *      used <span class="keyword">by</span> /usr/<span class="keyword">lib</span>/libmng.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span> (preserved)</div><div class="line">Use emerge @preserved-rebuild <span class="keyword">to</span> rebuild packages <span class="keyword">using</span> these libraries</div></pre></td></tr></table></figure>
-
-<h2 id="解决方法">解决方法</h2>
-<h3 id="折腾过程：">折腾过程：</h3>
-<ol>
-<li><p>emerge @preserved-rebuild 不起作用。</p>
-</li>
-<li><p>重装wps-office，再@preserved-rebuild，不起作用。</p>
-</li>
-<li><p>重装media-libs/libmng、package: media-libs/lcms不起作用。</p>
-</li>
-</ol>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">emerge</span> <span class="comment">media</span><span class="literal">-</span><span class="comment">libs/libmng</span></div><div class="line"><span class="comment">emerge</span> <span class="comment">media</span><span class="literal">-</span><span class="comment">libs/lcms</span></div><div class="line"><span class="comment">emerge</span> <span class="literal">-</span><span class="literal">-</span><span class="comment">depclean</span></div><div class="line"><span class="comment">revdep</span><span class="literal">-</span><span class="comment">rebuild</span></div></pre></td></tr></table></figure>
-
-<p>4.卸载wps-office（一直无法解决，想卸载暂时放弃使用），preserved libs提示消失：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="title">emerge</span> -C wps-office</div><div class="line">emerge --depclean</div><div class="line">emerge <span class="variable">@preserved</span>-rebuild</div></pre></td></tr></table></figure>
-
-<p>5.第二天安装wps-office，成功无preserved libs提示。</p>
-<h3 id="总结">总结</h3>
+		<p>title: Portage附加工具: dispatch-conf和etc-update<br>date: 2014-11-20 15:06:06<br>categories:</p>
 <ul>
-<li>先卸载引起preserved libs的软件包（记得—depclean）</li>
-<li>@preserved-rebuild</li>
-<li>重新安装软件</li>
+<li>Gentoo<br>tags:</li>
+<li>gentoo</li>
+<li>portage</li>
 </ul>
+<hr>
+<h2 id="dispatch-conf">dispatch-conf</h2>
+<h3 id="介绍">介绍</h3>
+<p>dispatch-conf是一个帮助合并<code>._cfg0000_&lt;名称&gt;</code>文件的工具。<code>._cfg0000_&lt;名称&gt;</code>文件是由Portage在它要覆盖被<code>CONFIG_PROTECT</code>变量所保护的某个目录里的文件时建立的。</p>
+<p>使用dispatch-conf能够在合并配置文件并升级更新的同时保持所有更新记录。dispatch-conf以RCS版本管理系统或是补丁的方式来保存配置文件间的差别。这意味着如果你在升级配置文件犯下错误时，你可以随时退回到你的配置文件的之前版本。</p>
+<p>使用dispatch-conf，你可以保持配置文件原来的样子，或者使用新的配置文件，你还可以编辑当前文件或交互式地合并更新。除此之外，dispatch-conf还有一些很棒的特性：</p>
+<blockquote>
+<ul>
+<li>可自动合并仅有注释变更的文件；</li>
+<li>可自动合并仅有空白符数量的不同的文件；</li>
+</ul>
+</blockquote>
+<h3 id="使用">使用</h3>
+<p>确定你先编辑了/etc/dispatch-conf.conf并创建了archive-dir变量设定的目录。</p>
+<ul>
+<li>运行dispatch-conf:</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dispatch-<span class="keyword">conf</span></div></pre></td></tr></table></figure>
+
+<p>当运行dispatch-conf的时候，程序会带你把每个改变了的配置文件挨个过一边。按 <strong>u</strong> 来用新配置文件更新（替换）现在的配置文件，然后继续处理下一个。按 <strong>z</strong> 来删除新配置文件，然后继续处理下一个。当处理完所有的配置文件之后，dispatch-conf就会退出。你也可以随时按q来退出。</p>
+<p>更多信息，请查阅dispatch-conf手册页。它会告诉你交互式的合并新旧配置文件，编辑新配置文件，检查两个文件间的差异等等。</p>
+<ul>
+<li>阅读dispatch-conf手册页:</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">man dispatch-<span class="keyword">conf</span></div></pre></td></tr></table></figure>
+
+<h2 id="etc-update">etc-update</h2>
+<h3 id="介绍-1">介绍</h3>
+<p>你也可以使用etc-update来合并配置文件。它不像dispatch-conf那样简单易用，功能也少，但是它也能提供交互式合并功能并且能自动合并一些简单的改变。</p>
+<p>不过，和dispatch-conf不同的是，etc-update不保留你的配置文件的旧版本。一旦你更新了文件，旧版本就永远丢失了。所以要非常小心，因为使用etc-update与使用dispatch-conf相比明显的不安全。</p>
+<h3 id="使用-1">使用</h3>
+<ul>
+<li>运行etc-update</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">etc-<span class="keyword">update</span></div></pre></td></tr></table></figure>
+
+<p>在整合简单直观的更动后，系统会提示你一个需要更新的受保护的文件列表。在最底下会提示你可选的操作选项：</p>
+<ul>
+<li>etc-update选项</li>
+</ul>
+<blockquote>
+<p>Please select a file to edit by entering the corresponding number.<br>(-1 to exit) (-3 to auto merge all remaining files)<br>(-5 to auto-merge AND not use ‘mv -i’):</p>
+</blockquote>
+<p>如果你输入-1，etc-update将直接退出且不执行任何变更。如果你输入-3或-5，所有列出的配置文件将被更新的版本覆盖。因此先选出无需自动升级的配置文件非常重要，而具体步骤也很简单，只需要输入在该配置文件左边显示的数字就可以了。</p>
   
 	</div>
 		<footer class="article-footer clearfix">
 
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/gentoo/">gentoo</a><a href="/tags/mistake/">mistake</a>
-  </div>
-
-
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/Gentoo/">Gentoo</a>
-</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://aceking.gitcafe.com/2014/10/20/gentoo-preserved-libs/" data-title="Gentoo解决&quot;!!! existing preserved libs&quot;问题 | 铭鉴" data-tsina="null" class="share clearfix">
+  <div data-url="http://aceking.gitcafe.com/2014/11/20/gentoo-dispatch-etc/" data-title="铭鉴" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -150,19 +173,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2014/10/24/xorg-failed-module/" title="Xorg问题:Failed to load module &quot;……&quot;">
-  <strong>PREVIOUS:</strong><br/>
-  <span>
-  Xorg问题:Failed to load module &quot;……&quot;</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2014/10/10/arch-handbook/"  title="Arch Linux安装详解">
+<a href="/2014/11/20/gentoo-grub-themes/"  title="Gentoo系统下设置Grub启动菜单--使用官方livedvd主题">
  <strong>NEXT:</strong><br/> 
- <span>Arch Linux安装详解
+ <span>Gentoo系统下设置Grub启动菜单--使用官方livedvd主题
 </span>
 </a>
 </div>
@@ -180,7 +195,7 @@
 
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
-  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法"><span class="toc-number">2.</span> <span class="toc-text">解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#折腾过程："><span class="toc-number">2.1.</span> <span class="toc-text">折腾过程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">2.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#dispatch-conf"><span class="toc-number">1.</span> <span class="toc-text">dispatch-conf</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍"><span class="toc-number">1.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用"><span class="toc-number">1.2.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#etc-update"><span class="toc-number">2.</span> <span class="toc-text">etc-update</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#介绍-1"><span class="toc-number">2.1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-1"><span class="toc-number">2.2.</span> <span class="toc-text">使用</span></a></li></ol></li></ol>
   </div>
 
 <div id="asidepart">
