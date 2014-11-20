@@ -4,20 +4,13 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>铭鉴</title>
+    <title>Gentoo解决&quot;!!! existing preserved libs&quot;问题 | 铭鉴</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
     
     <meta name="author" content="Ace King">
     
-    <meta name="description" content="title: Gentoo: !!! existing preserved libs问题date: 2014-10-20 15:57:15categories:
-
-Gentootags:
-gentoo
-mistake
-
-
-问题描述
-1234567891011!!! existing preserve">
+    <meta name="description" content="问题描述
+1234567891011!!! existing preserved libs:&amp;gt;&amp;gt;&amp;gt; package: media-libs/libmng-2.0.2-r1 *  - /usr/lib/libmng.so.1 *  - /usr/lib/libmng.so.1.0.0">
     
     
     
@@ -84,15 +77,15 @@ mistake
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2014/11/20/gentoo-preserved-libs/" title="" itemprop="url"></a>
+      <a href="/2014/10/20/gentoo-preserved-libs/" title="Gentoo解决&quot;!!! existing preserved libs&quot;问题" itemprop="url">Gentoo解决&quot;!!! existing preserved libs&quot;问题</a>
   </h1>
   <p class="article-author">By
     
       <a href="http://aceking.gitcafe.com" title="Ace King">Ace King</a>
     </p>
   <p class="article-time">
-    <time datetime="2014-11-20T06:03:52.000Z" itemprop="datePublished">11月 20 2014</time>
-    更新日期:<time datetime="2014-11-20T06:03:52.000Z" itemprop="dateModified">11月 20 2014</time>
+    <time datetime="2014-10-20T07:57:15.000Z" itemprop="datePublished">10月 20 2014</time>
+    更新日期:<time datetime="2014-11-20T06:20:05.000Z" itemprop="dateModified">11月 20 2014</time>
     
   </p>
 </header>
@@ -104,14 +97,7 @@ mistake
 		<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#问题描述"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决方法"><span class="toc-number">2.</span> <span class="toc-text">解决方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#折腾过程："><span class="toc-number">2.1.</span> <span class="toc-text">折腾过程：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#总结"><span class="toc-number">2.2.</span> <span class="toc-text">总结</span></a></li></ol></li></ol>
 		</div>
 		
-		<p>title: Gentoo: !!! existing preserved libs问题<br>date: 2014-10-20 15:57:15<br>categories:</p>
-<ul>
-<li>Gentoo<br>tags:</li>
-<li>gentoo</li>
-<li>mistake</li>
-</ul>
-<hr>
-<h2 id="问题描述">问题描述</h2>
+		<h2 id="问题描述">问题描述</h2>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">!!! existing preserved libs:</div><div class="line">&gt;&gt;&gt; package: media-libs/libmng-<span class="number">2.0</span><span class="number">.2</span>-r1</div><div class="line"> *  - /usr/<span class="keyword">lib</span>/libmng.so<span class="number">.1</span></div><div class="line"> *  - /usr/<span class="keyword">lib</span>/libmng.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span></div><div class="line"> *      used <span class="keyword">by</span> /opt/kingsoft/wps-office/office6/qt/plugins/imageformats/libqmng.so (app-office/wps-office-<span class="number">9.1</span><span class="number">.0</span><span class="number">.4751</span>_alpha15)</div><div class="line">&gt;&gt;&gt; package: media-libs/lcms-<span class="number">1.19</span>-r2</div><div class="line"> *  - /usr/<span class="keyword">lib</span>/liblcms.so<span class="number">.1</span></div><div class="line"> *  - /usr/<span class="keyword">lib</span>/liblcms.so<span class="number">.1</span><span class="number">.0</span><span class="number">.19</span></div><div class="line"> *      used <span class="keyword">by</span> /usr/<span class="keyword">lib</span>/libmng.so<span class="number">.1</span> (preserved)</div><div class="line"> *      used <span class="keyword">by</span> /usr/<span class="keyword">lib</span>/libmng.so<span class="number">.1</span><span class="number">.0</span><span class="number">.0</span> (preserved)</div><div class="line">Use emerge @preserved-rebuild <span class="keyword">to</span> rebuild packages <span class="keyword">using</span> these libraries</div></pre></td></tr></table></figure>
 
 <h2 id="解决方法">解决方法</h2>
@@ -140,12 +126,22 @@ mistake
 	</div>
 		<footer class="article-footer clearfix">
 
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/gentoo/">gentoo</a><a href="/tags/mistake/">mistake</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/Gentoo/">Gentoo</a>
+</div>
 
 
 
 <div class="article-share" id="share">
 
-  <div data-url="http://aceking.gitcafe.com/2014/11/20/gentoo-preserved-libs/" data-title="铭鉴" data-tsina="null" class="share clearfix">
+  <div data-url="http://aceking.gitcafe.com/2014/10/20/gentoo-preserved-libs/" data-title="Gentoo解决&quot;!!! existing preserved libs&quot;问题 | 铭鉴" data-tsina="null" class="share clearfix">
   </div>
 
 </div>
@@ -154,11 +150,19 @@ mistake
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2014/10/24/xorg-failed-module/" title="Xorg问题:Failed to load module &quot;……&quot;">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Xorg问题:Failed to load module &quot;……&quot;</span>
+</a>
+</div>
+
 
 <div class="next">
-<a href="/2014/11/14/git-submodule/"  title="Git使用子模块引用外部项目">
+<a href="/2014/10/10/arch-handbook/"  title="Arch Linux安装详解">
  <strong>NEXT:</strong><br/> 
- <span>Git使用子模块引用外部项目
+ <span>Arch Linux安装详解
 </span>
 </a>
 </div>
@@ -190,7 +194,7 @@ mistake
 		
 			<li><a href="/categories/Arch/" title="Arch">Arch<sup>1</sup></a></li>
 		
-			<li><a href="/categories/Gentoo/" title="Gentoo">Gentoo<sup>13</sup></a></li>
+			<li><a href="/categories/Gentoo/" title="Gentoo">Gentoo<sup>14</sup></a></li>
 		
 			<li><a href="/categories/Git/" title="Git">Git<sup>1</sup></a></li>
 		
@@ -211,7 +215,7 @@ mistake
 		
 			<li><a href="/tags/gcc/" title="gcc">gcc<sup>1</sup></a></li>
 		
-			<li><a href="/tags/gentoo/" title="gentoo">gentoo<sup>13</sup></a></li>
+			<li><a href="/tags/gentoo/" title="gentoo">gentoo<sup>14</sup></a></li>
 		
 			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
 		
@@ -223,7 +227,7 @@ mistake
 		
 			<li><a href="/tags/locale/" title="locale">locale<sup>2</sup></a></li>
 		
-			<li><a href="/tags/mistake/" title="mistake">mistake<sup>2</sup></a></li>
+			<li><a href="/tags/mistake/" title="mistake">mistake<sup>3</sup></a></li>
 		
 			<li><a href="/tags/network/" title="network">network<sup>2</sup></a></li>
 		
@@ -242,7 +246,7 @@ mistake
   
   <div class="archiveslist">
     <p class="asidetitle"><a href="/archives">归档</a></p>
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">2</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">2</span></li></ul>
   </div>
 
 
@@ -250,7 +254,7 @@ mistake
   <div class="tagcloudlist">
     <p class="asidetitle">标签云</p>
     <div class="tagcloudlist clearfix">
-       <a href="/tags/arch/" style="font-size: 10.00px;">arch</a><a href="/tags/blog/" style="font-size: 10.00px;">blog</a><a href="/tags/gcc/" style="font-size: 10.00px;">gcc</a><a href="/tags/gentoo/" style="font-size: 20.00px;">gentoo</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/handbook/" style="font-size: 13.33px;">handbook</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/kernel/" style="font-size: 10.00px;">kernel</a><a href="/tags/locale/" style="font-size: 13.33px;">locale</a><a href="/tags/mistake/" style="font-size: 13.33px;">mistake</a><a href="/tags/network/" style="font-size: 13.33px;">network</a><a href="/tags/ntfs/" style="font-size: 10.00px;">ntfs</a><a href="/tags/portage/" style="font-size: 16.67px;">portage</a><a href="/tags/time/" style="font-size: 10.00px;">time</a><a href="/tags/xorg/" style="font-size: 10.00px;">xorg</a>
+       <a href="/tags/arch/" style="font-size: 10.00px;">arch</a><a href="/tags/blog/" style="font-size: 10.00px;">blog</a><a href="/tags/gcc/" style="font-size: 10.00px;">gcc</a><a href="/tags/gentoo/" style="font-size: 20.00px;">gentoo</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/handbook/" style="font-size: 12.50px;">handbook</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/kernel/" style="font-size: 10.00px;">kernel</a><a href="/tags/locale/" style="font-size: 12.50px;">locale</a><a href="/tags/mistake/" style="font-size: 15.00px;">mistake</a><a href="/tags/network/" style="font-size: 12.50px;">network</a><a href="/tags/ntfs/" style="font-size: 10.00px;">ntfs</a><a href="/tags/portage/" style="font-size: 17.50px;">portage</a><a href="/tags/time/" style="font-size: 10.00px;">time</a><a href="/tags/xorg/" style="font-size: 10.00px;">xorg</a>
     </div>
   </div>
 
