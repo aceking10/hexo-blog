@@ -1,0 +1,426 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Linux系统维护--根分区读写权限 | 铭鉴</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+    
+    <meta name="author" content="Ace King">
+    
+    <meta name="description" content="单人维护模式当中， / 是 read only 的状态，无法修改 /etc/fstab，挂载分区。解决方法：
+1mount -n -o remount,rw /">
+    
+    
+    
+    
+    <link rel="alternate" href="http://aceking.gitcafe.com/atom.xml" title="铭鉴" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/pacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/pacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+</head>
+
+  <body>
+    <header>
+      <div>
+		
+			<div id="imglogo">
+				<a href="/"><img src="/img/logo.png" alt="铭鉴" title="铭鉴"/></a>
+			</div>
+			
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="铭鉴">铭鉴</a></h1>
+				<h2 class="blog-motto">X= 铭之，以为鉴！</h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					
+						<li><a href="/">主页</a></li>
+					
+						<li><a href="/archives">归档</a></li>
+					
+						<li><a href="/categories">分类</a></li>
+					
+						<li><a href="/tags">标签</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/gentoo">Gentoo公告板</a></li>
+					
+					<li>
+					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="text" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:aceking.gitcafe.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2014/11/25/rescue-remount/" title="Linux系统维护--根分区读写权限" itemprop="url">Linux系统维护--根分区读写权限</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="http://aceking.gitcafe.com" title="Ace King">Ace King</a>
+    </p>
+  <p class="article-time">
+    <time datetime="2014-11-25T08:01:21.000Z" itemprop="datePublished">11月 25 2014</time>
+    更新日期:<time datetime="2014-11-25T08:03:08.000Z" itemprop="dateModified">11月 25 2014</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+		</div>
+		
+		<p>单人维护模式当中， / 是 read only 的状态，无法修改 /etc/fstab，挂载分区。<br>解决方法：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">mount</span> -n -o remount,rw /</div></pre></td></tr></table></figure>
+
+  
+	</div>
+		<footer class="article-footer clearfix">
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/rescue/">rescue</a><a href="/tags/mount/">mount</a>
+  </div>
+
+
+<div class="article-categories">
+  <span></span>
+  <a class="article-category-link" href="/categories/GNU-Linux应用/">GNU/Linux应用</a>
+</div>
+
+
+
+<div class="article-share" id="share">
+
+  <div data-url="http://aceking.gitcafe.com/2014/11/25/rescue-remount/" data-title="Linux系统维护--根分区读写权限 | 铭鉴" data-tsina="null" class="share clearfix">
+  </div>
+
+</div>
+</footer>   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+ <div class="prev" >
+ <a href="/2014/11/25/rescue-chroot/" title="Linux系统维护--chroot">
+  <strong>PREVIOUS:</strong><br/>
+  <span>
+  Linux系统维护--chroot</span>
+</a>
+</div>
+
+
+<div class="next">
+<a href="/2014/11/25/fstab/"  title="配置启动挂载：fstab文件详解">
+ <strong>NEXT:</strong><br/> 
+ <span>配置启动挂载：fstab文件详解
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section class="comment">
+	<div class="ds-thread"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+  
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="categorieslist">
+	<p class="asidetitle">分类</p>
+		<ul>
+		
+			<li><a href="/categories/Arch/" title="Arch">Arch<sup>1</sup></a></li>
+		
+			<li><a href="/categories/GNU-Linux应用/" title="GNU/Linux应用">GNU/Linux应用<sup>3</sup></a></li>
+		
+			<li><a href="/categories/Gentoo/" title="Gentoo">Gentoo<sup>17</sup></a></li>
+		
+			<li><a href="/categories/Git/" title="Git">Git<sup>1</sup></a></li>
+		
+			<li><a href="/categories/Hexo/" title="Hexo">Hexo<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			<li><a href="/tags/arch/" title="arch">arch<sup>1</sup></a></li>
+		
+			<li><a href="/tags/blog/" title="blog">blog<sup>1</sup></a></li>
+		
+			<li><a href="/tags/chroot/" title="chroot">chroot<sup>1</sup></a></li>
+		
+			<li><a href="/tags/etc/" title="etc">etc<sup>1</sup></a></li>
+		
+			<li><a href="/tags/fstab/" title="fstab">fstab<sup>1</sup></a></li>
+		
+			<li><a href="/tags/gcc/" title="gcc">gcc<sup>1</sup></a></li>
+		
+			<li><a href="/tags/gentoo/" title="gentoo">gentoo<sup>17</sup></a></li>
+		
+			<li><a href="/tags/git/" title="git">git<sup>1</sup></a></li>
+		
+			<li><a href="/tags/grub/" title="grub">grub<sup>1</sup></a></li>
+		
+			<li><a href="/tags/handbook/" title="handbook">handbook<sup>2</sup></a></li>
+		
+			<li><a href="/tags/hexo/" title="hexo">hexo<sup>1</sup></a></li>
+		
+			<li><a href="/tags/kernel/" title="kernel">kernel<sup>1</sup></a></li>
+		
+			<li><a href="/tags/locale/" title="locale">locale<sup>2</sup></a></li>
+		
+			<li><a href="/tags/mistake/" title="mistake">mistake<sup>3</sup></a></li>
+		
+			<li><a href="/tags/mount/" title="mount">mount<sup>1</sup></a></li>
+		
+			<li><a href="/tags/network/" title="network">network<sup>2</sup></a></li>
+		
+			<li><a href="/tags/ntfs/" title="ntfs">ntfs<sup>1</sup></a></li>
+		
+			<li><a href="/tags/portage/" title="portage">portage<sup>6</sup></a></li>
+		
+			<li><a href="/tags/rescue/" title="rescue">rescue<sup>2</sup></a></li>
+		
+			<li><a href="/tags/time/" title="time">time<sup>1</sup></a></li>
+		
+		</ul>
+</div>
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle"><a href="/archives">归档</a></p>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/11/">November 2014</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/10/">October 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/09/">September 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/08/">August 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/05/">May 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/12/">December 2013</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/11/">November 2013</a><span class="archive-list-count">2</span></li></ul>
+  </div>
+
+
+  
+  <div class="tagcloudlist">
+    <p class="asidetitle">标签云</p>
+    <div class="tagcloudlist clearfix">
+       <a href="/tags/arch/" style="font-size: 10.00px;">arch</a><a href="/tags/blog/" style="font-size: 10.00px;">blog</a><a href="/tags/chroot/" style="font-size: 10.00px;">chroot</a><a href="/tags/etc/" style="font-size: 10.00px;">etc</a><a href="/tags/fstab/" style="font-size: 10.00px;">fstab</a><a href="/tags/gcc/" style="font-size: 10.00px;">gcc</a><a href="/tags/gentoo/" style="font-size: 20.00px;">gentoo</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/grub/" style="font-size: 10.00px;">grub</a><a href="/tags/handbook/" style="font-size: 12.50px;">handbook</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/kernel/" style="font-size: 10.00px;">kernel</a><a href="/tags/locale/" style="font-size: 12.50px;">locale</a><a href="/tags/mistake/" style="font-size: 15.00px;">mistake</a><a href="/tags/mount/" style="font-size: 10.00px;">mount</a><a href="/tags/network/" style="font-size: 12.50px;">network</a><a href="/tags/ntfs/" style="font-size: 10.00px;">ntfs</a><a href="/tags/portage/" style="font-size: 17.50px;">portage</a><a href="/tags/rescue/" style="font-size: 12.50px;">rescue</a><a href="/tags/time/" style="font-size: 10.00px;">time</a><a href="/tags/xorg/" style="font-size: 10.00px;">xorg</a>
+    </div>
+  </div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+      <li><a href="http://yangjian.me" target="_blank" title="YangJian">Alimon's Blog</a></li>
+      <li><a href="http://hexo.io" target="_blank" title="Hexo">Hexo</a></li>
+    </ul>
+</div>
+
+
+  <div class="rsspart">
+	<a href="http://aceking.gitcafe.com/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	<div class="line">
+		<span></span>
+		<div class="author"></div>
+	</div>
+	
+	
+	<section class="info">
+		<p> 孤逐王--个人博客 <br/>
+			X印记：记录极客成长路上的点点滴滴！</p>
+	</section>
+	 
+	<div class="social-font clearfix">
+		
+		<a href="http://weibo.com/aceking10" target="_blank" title="weibo"></a>
+		
+		
+		
+		<a href="https://github.com/aceking10" target="_blank" title="github"></a>
+		
+		
+		
+	</div>
+		<p class="copyright">Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/A-limon/pacman" target="_blank" title="Pacman">Pacman</a> © 2014 
+		
+		<a href="http://aceking.gitcafe.com" target="_blank" title="Ace King">Ace King</a>
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://s.jiathis.com/qrcode.php?url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});     
+</script>
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"null"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+  </body>
+</html>
